@@ -24,6 +24,7 @@ namespace IOBrokerDataWriter.Controllers
         //}
 
         // GET: api/IoBroker/zwave2.0.Node_031.Binary_Switch.targetValue?zielwert=true
+        //http://iobrokerdatawriter.prod-system.192.168.2.114.xip.io/api/IoBroker/zwave2.0.Node_031.Binary_Switch.targetValue?zielwert=true
         [HttpGet("{id}", Name = "Get")]    
         public ActionResult Get(string id, string zielwert)
         //public string Get(string id)
