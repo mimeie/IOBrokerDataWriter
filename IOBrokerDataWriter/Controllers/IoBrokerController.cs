@@ -35,12 +35,22 @@ namespace IOBrokerDataWriter.Controllers
                 zielwertBool = true;
             }
 
-            Console.WriteLine("get string");
-            Console.WriteLine(id);
-
+            Console.WriteLine("get string: " + id);
+           
             IOBrokerWebConnector ioSet = new IOBrokerWebConnector();
+            IOBrokerJSONSet result = ioSet.SetIOBrokerValue(id, zielwertBool);
+            if (result != null)
+            {
+                Console.WriteLine("content zurück erhalten");
+                return Content(JsonConvert.SerializeObject(result), "application/json");               
+            }
+            else
+            {
+                Console.WriteLine("content null, ohne error");
+                return null;
+            }
 
-            return Content(JsonConvert.SerializeObject(ioSet.SetIOBrokerValue(id,zielwertBool)), "application/json");
+            
             //return "value " + intColl.getIntValue(id);
         }
 
