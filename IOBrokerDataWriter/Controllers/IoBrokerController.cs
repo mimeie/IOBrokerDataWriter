@@ -29,16 +29,36 @@ namespace IOBrokerDataWriter.Controllers
         [HttpGet("{id}", Name = "Get")]    
         public ActionResult Get(string id, string zielwert)      
         {
+            //datentyp herausfinden
+            bool isZielwertBool = true;
             bool zielwertBool = false;
+            int zielwertInt=0;
             if (zielwert == "true")
             {
                 zielwertBool = true;
             }
+            else if (zielwert == "false")
+            {
+                zielwertBool = false;
+            }
+            else
+            {
+                isZielwertBool = false;
+                zielwertInt =  Int32.Parse(zielwert);
+            }
 
-            Console.WriteLine("get string: " + id);
+            Console.WriteLine("get string: {0}, zielwert= {1}", id, zielwert);
            
             IOBrokerWebConnector ioSet = new IOBrokerWebConnector();
-            IOBrokerJSONSet result = ioSet.SetIOBrokerValue(id, zielwertBool);
+            IOBrokerJSONSet result;
+            if (isZielwertBool == true)
+            {
+                result = ioSet.SetIOBrokerValue(id, zielwertBool);
+            }
+            else
+            {
+                result = ioSet.SetIOBrokerValue(id, zielwertInt);
+            }
             if (result != null)
             {
                 Console.WriteLine("content zurück erhalten");
